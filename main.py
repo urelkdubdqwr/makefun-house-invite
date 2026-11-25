@@ -35,7 +35,11 @@ def main():
         return 1
 
     destination = os.path.join(output_dir, SOURCE_NAME)
-    shutil.copyfile(source, destination)
+    try:
+        shutil.copyfile(source, destination)
+    except OSError as exc:
+        print("cannot write {0}: {1}".format(destination, exc), file=sys.stderr)
+        return 1
     return 0
 
 
